@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\AuthWebController;
+use App\Http\Controllers\KaryawanController;
 
 
 Route::get('/', function () {
@@ -26,10 +27,12 @@ Route::get('/absensi', function () {
     return view('absensi.index');
 });
 
-Route::get('/karyawan', function () {
-    return view('karyawan.index');
-});
-
 Route::get('/jobdesk', function () {
     return view('jobdesk.index');
 });
+
+Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
+Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
+Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
+Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
+Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');

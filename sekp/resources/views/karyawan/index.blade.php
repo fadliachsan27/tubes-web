@@ -4,128 +4,133 @@
 
 @section('content')
 
-<div class="card mb-3">
-    <div class="card-body">
-        <div class="row g-3 justify-content-center align-items-end">
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="row g-3 justify-content-center align-items-end">
 
-            <div class="col-md-4">
-                <label class="form-label">Nama</label>
-                <select class="form-select">
-                    <option value="">Choose</option>
-                    <option>John Doe</option>
-                    <option>Jane Smith</option>
-                </select>
+                <div class="col-md-4">
+                    <label class="form-label">Nama</label>
+                    <select class="form-select">
+                        <option value="">Choose</option>
+                        <option>John Doe</option>
+                        <option>Jane Smith</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Role</label>
+                    <select class="form-select">
+                        <option value="">Choose</option>
+                        <option>Karyawan</option>
+                        <option>Admin</option>
+                    </select>
+                </div>
+
             </div>
-
-            <div class="col-md-4">
-                <label class="form-label">Role</label>
-                <select class="form-select">
-                    <option value="">Choose</option>
-                    <option>Karyawan</option>
-                    <option>Admin</option>
-                </select>
-            </div>
-
         </div>
     </div>
-</div>
 
-<div class="mb-3">
-    <button
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#modalTambahKaryawan"
-    >
-        <i class="fa-solid fa-plus me-1"></i> Tambah
-    </button>
-</div>
-
-<div class="card">
-    <div class="card-header fw-semibold">
-        Tabel Data Karyawan
+    <div class="mb-3">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahKaryawan">
+            <i class="fa-solid fa-plus me-1"></i> Tambah
+        </button>
     </div>
 
-    <div class="card-body p-0">
-        <table class="table table-striped mb-0">
-            <thead class="table-light">
-                <tr>
-                    <th>ID</th>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Telepon</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th width="120">Aksi</th>
-                </tr>
-            </thead>
+    <div class="card">
+        <div class="card-header fw-semibold">
+            Tabel Data Karyawan
+        </div>
 
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>John Doe</td>
-                    <td>john@example.com</td>
-                    <td>08123456789</td>
-                    <td>Karyawan</td>
-                    <td>
-                        <span class="badge bg-success">Aktif</span>
-                    </td>
-                    <td>
-                        <div class="d-flex gap-1">
-                            <button
-                                class="btn btn-warning btn-sm text-white edit-btn"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalEditKaryawan"
-                            >
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>Telepon</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th width="120">Aksi</th>
+                    </tr>
+                </thead>
 
-                            <button
-                                class="btn btn-danger btn-sm delete-btn"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalDeleteKaryawan"
-                            >
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
+                <tbody>
+                    @foreach ($karyawans as $karyawan)
+                        <tr>
+                            <td>{{ $karyawan->kode }}</td>
+                            <td>{{ $karyawan->nama }}</td>
+                            <td>{{ $karyawan->email }}</td>
+                            <td>{{ $karyawan->telepon }}</td>
+                            <td>{{ $karyawan->role }}</td>
+                            <td>
+                                <span style="color: {{ $karyawan->status == 'Aktif' ? 'green' : 'red' }}">
+                                    {{ $karyawan->status }}
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-warning btn-sm text-white edit-btn" data-bs-toggle="modal"
+                                    data-bs-target="#modalEditKaryawan" data-id="{{ $karyawan->id }}"
+                                    data-nama="{{ $karyawan->nama }}" data-email="{{ $karyawan->email }}"
+                                    data-telepon="{{ $karyawan->telepon }}" data-role="{{ $karyawan->role }}"
+                                    data-status="{{ $karyawan->status }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
 
-                <tr>
-                    <td>002</td>
-                    <td>Jane Smith</td>
-                    <td>jane@example.com</td>
-                    <td>08234567890</td>
-                    <td>Admin</td>
-                    <td>
-                        <span class="badge bg-secondary">Nonaktif</span>
-                    </td>
-                    <td>
-                        <div class="d-flex gap-1">
-                            <button
-                                class="btn btn-warning btn-sm text-white edit-btn"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalEditKaryawan"
-                            >
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
+                                <button class="btn btn-danger btn-sm delete-btn" data-bs-toggle="modal"
+                                    data-bs-target="#modalDeleteKaryawan" data-id="{{ $karyawan->id }}">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
 
-                            <button
-                                class="btn btn-danger btn-sm delete-btn"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalDeleteKaryawan"
-                            >
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
 
-        </table>
+            </table>
+        </div>
     </div>
-</div>
 
-@include('karyawan.modal')
+    @include('karyawan.modal')
 
 @endsection
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modalDelete = document.getElementById('modalDeleteKaryawan');
+        const formDelete = document.getElementById('formDeleteKaryawan');
+
+        modalDelete.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const id = button.getAttribute('data-id');
+
+            formDelete.action = `/karyawan/${id}`;
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // EDIT
+        const modalEdit = document.getElementById('modalEditKaryawan');
+        const formEdit = document.getElementById('formEditKaryawan');
+
+        modalEdit.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+
+            const id = button.getAttribute('data-id');
+            const nama = button.getAttribute('data-nama');
+            const email = button.getAttribute('data-email');
+            const telepon = button.getAttribute('data-telepon');
+            const role = button.getAttribute('data-role');
+            const status = button.getAttribute('data-status');
+
+            formEdit.action = `/karyawan/${id}`;
+
+            document.getElementById('editNama').value = nama;
+            document.getElementById('editEmail').value = email;
+            document.getElementById('editTelepon').value = telepon;
+            document.getElementById('editRole').value = role;
+            document.getElementById('editStatus').value = status;
+        });
+
+    });
+</script>
