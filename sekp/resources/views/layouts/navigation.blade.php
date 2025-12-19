@@ -63,8 +63,11 @@
         <small class="text-muted mt-3 ms-2">ACCOUNT</small>
 
         <li class="nav-item">
-            <a href="/profile" class="nav-link text-secondary">
-                <i class="fa-solid fa-user me-2"></i> Profile
+                <a href="/profile"
+               class="nav-link {{ Request::is('profile') ? 'active text-white' : 'text-secondary' }}"
+               style="{{ Request::is('profile') ? 'background-color:#11b3b3' : '' }}">
+                <i class="fa-solid fa-user me-2"></i> profile
+            </a>
             </a>
         </li>
 

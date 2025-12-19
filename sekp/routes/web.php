@@ -35,3 +35,11 @@ Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('kar
 Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
 Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
 Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
+
+Route::get('/penggajian', function () {
+    return view('penggajian.index');
+});
+
+Route::get('/profile', function () {
+    return view('profile.index');
+});

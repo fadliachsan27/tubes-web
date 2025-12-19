@@ -103,3 +103,41 @@
         </form>
     </div>
 </div>
+
+<div class="modal fade" id="modalJobdeskKaryawan" tabindex="-1">
+    <div class="modal-dialog">
+        <form class="modal-content" method="POST" action="#">
+            @csrf
+
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Jobdesk Karyawan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label class="form-label">Jobdesk</label>
+                    <select name="jobdesk_id" class="form-select" required>
+                        <option value="">Pilih Jobdesk</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Karyawan</label>
+                    <select name="karyawan_id" class="form-select" required>
+                        <option value="">Pilih Karyawan</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success w-100">
+                    Simpan
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
