@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Karyawan;
+use Illuminate\Support\Facades\Hash;
 
 class KaryawanRepository
 {
@@ -12,10 +13,17 @@ class KaryawanRepository
     }
 
     public function create(array $data)
-    {
-        $data['kode'] = 'KRY-' . time();
-        return Karyawan::create($data);
-    }
+{
+    return Karyawan::create([
+        'kode' => 'KRY-' . time(),
+        'nama' => $data['nama'],
+        'email' => $data['email'],
+        'telepon' => $data['telepon'],
+        'role' => $data['role'],
+        'status' => $data['status'],
+        'password' => Hash::make('123456') // 🔥 WAJIB
+    ]);
+}
 
     public function findById($id)
     {

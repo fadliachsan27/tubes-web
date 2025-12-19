@@ -17,7 +17,8 @@ class Karyawan extends Model
         'email',
         'telepon',
         'role',
-        'status'
+        'status',
+        'password'
     ];
     
 }

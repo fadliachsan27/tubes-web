@@ -41,3 +41,6 @@ Route::get('/absensi', function () {
     return view('absensi.index');
 });
 
+Route::get('/penggajian', function () {
+    return view('penggajian.index');
+});
