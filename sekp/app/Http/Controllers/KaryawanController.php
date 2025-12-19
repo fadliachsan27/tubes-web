@@ -2,25 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Karyawan;
+use App\Repositories\KaryawanRepository;
 use Illuminate\Http\Request;
 
 class KaryawanController extends Controller
 {
-    // tampilkan data
+    protected $karyawanRepo;
+
+    public function __construct(KaryawanRepository $karyawanRepo)
+    {
+        $this->karyawanRepo = $karyawanRepo;
+    }
+
     public function index()
     {
-        $karyawans = Karyawan::all();
+        $karyawans = $this->karyawanRepo->getAll();
         return view('karyawan.index', compact('karyawans'));
     }
 
-    // form tambah data
     public function create()
     {
         return view('karyawan.create');
     }
 
-    // simpan ke database
     public function store(Request $request)
     {
         $request->validate([
@@ -31,14 +35,9 @@ class KaryawanController extends Controller
             'status' => 'required',
         ]);
 
-        Karyawan::create([
-            'kode' => 'KRY-' . time(), // ✅ ISI DI SINI
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'telepon' => $request->telepon,
-            'role' => $request->role,
-            'status' => $request->status,
-        ]);
+        $this->karyawanRepo->create($request->only([
+            'nama', 'email', 'telepon', 'role', 'status'
+        ]));
 
         return redirect()->route('karyawan.index')
             ->with('success', 'Data karyawan berhasil ditambahkan');
@@ -54,30 +53,19 @@ class KaryawanController extends Controller
             'status' => 'required',
         ]);
 
-        $karyawan = Karyawan::findOrFail($id);
-
-        $karyawan->update([
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'telepon' => $request->telepon,
-            'role' => $request->role,
-            'status' => $request->status,
-        ]);
+        $this->karyawanRepo->update($id, $request->only([
+            'nama', 'email', 'telepon', 'role', 'status'
+        ]));
 
         return redirect()->route('karyawan.index')
             ->with('success', 'Data karyawan berhasil diperbarui');
     }
 
-
-
     public function destroy($id)
     {
-        $karyawan = Karyawan::findOrFail($id);
-        $karyawan->delete();
+        $this->karyawanRepo->delete($id);
 
         return redirect()->route('karyawan.index')
             ->with('success', 'Data karyawan berhasil dihapus');
     }
-    
-
 }

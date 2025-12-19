@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="col-md-2">
-                        <button class="btn btn-primary w-25">
+                        <button class="btn btn-primary w-50">
                             Cari
                         </button>
                     </div>
@@ -80,9 +80,10 @@
                             <td>{{ $karyawan->telepon }}</td>
                             <td>{{ $karyawan->role }}</td>
                             <td>
-                                <span style="color: {{ $karyawan->status == 'Aktif' ? 'green' : 'red' }}">
+                                <span class="badge bg-{{ $karyawan->status == 'Aktif' ? 'success' : 'secondary' }}">
                                     {{ $karyawan->status }}
                                 </span>
+
                             </td>
                             <td>
                                 <button class="btn btn-warning btn-sm text-white edit-btn" data-bs-toggle="modal"
