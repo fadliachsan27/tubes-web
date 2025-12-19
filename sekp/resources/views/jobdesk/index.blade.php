@@ -3,6 +3,7 @@
 @section('title', 'Data Jobdesk')
 
 @section('content')
+<h4 class="mb-4">Jobdesk</h4>
 
 {{-- FILTER --}}
 <div class="card mb-3">
@@ -32,13 +33,23 @@
 </div>
 
 {{-- ACTION BUTTON --}}
-<div class="mb-3">
+<div class="mb-3 d-flex gap-2">
+    <!-- Tambah Jobdesk -->
     <button
         class="btn btn-primary"
         data-bs-toggle="modal"
         data-bs-target="#modalTambahJobdesk"
     >
-        <i class="fa-solid fa-plus me-1"></i> Tambah
+        <i class="fa-solid fa-plus me-1"></i> Tambah Jobdesk
+    </button>
+
+    <!-- Tambah Jobdesk Karyawan -->
+    <button
+        class="btn btn-success"
+        data-bs-toggle="modal"
+        data-bs-target="#modalJobdeskKaryawan"
+    >
+        <i class="fa-solid fa-user-plus me-1"></i> Jobdesk Karyawan
     </button>
 </div>
 

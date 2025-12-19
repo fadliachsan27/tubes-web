@@ -3,6 +3,7 @@
 @section('title', 'Data Karyawan')
 
 @section('content')
+<h4 class="mb-4">Karyawan</h4>
 
     <form method="GET" action="{{ route('karyawan.index') }}">
         <div class="card mb-3">
@@ -48,7 +49,7 @@
 
     <div class="mb-3">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahKaryawan">
-            <i class="fa-solid fa-plus me-1"></i> Tambah
+            <i class="fa-solid fa-plus me-1"></i> Tambah Karyawan
         </button>
     </div>
 

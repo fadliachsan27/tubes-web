@@ -37,10 +37,19 @@ Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.s
 Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
 Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
 
+<<<<<<< HEAD
 Route::get('/absensi', function () {
     return view('absensi.index');
 });
 
 Route::get('/penggajian', function () {
     return view('penggajian.index');
+=======
+Route::get('/penggajian', function () {
+    return view('penggajian.index');
+});
+
+Route::get('/profile', function () {
+    return view('profile.index');
+>>>>>>> origin/fadliachsan
 });
