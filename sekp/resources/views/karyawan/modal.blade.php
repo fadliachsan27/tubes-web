@@ -49,7 +49,7 @@
 
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary w-100">
-                    Simpan
+                    Simpan 
                 </button>
             </div>
 
@@ -127,7 +127,7 @@
             </div>
 
             <div class="modal-body">
-                <p>Yakin ingin menghapus karyawan ini?</p>
+                <p>Apakah yakin ingin menghapus karyawan ini?</p>
             </div>
 
             <div class="modal-footer">

@@ -4,31 +4,47 @@
 
 @section('content')
 
-    <div class="card mb-3">
-        <div class="card-body">
-            <div class="row g-3 justify-content-center align-items-end">
+    <form method="GET" action="{{ route('karyawan.index') }}">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="row g-3 justify-content-center align-items-end">
 
-                <div class="col-md-4">
-                    <label class="form-label">Nama</label>
-                    <select class="form-select">
-                        <option value="">Choose</option>
-                        <option>John Doe</option>
-                        <option>Jane Smith</option>
-                    </select>
+                    <div class="col-md-4">
+                        <label class="form-label">Nama</label>
+                        <select name="nama" class="form-select">
+                            <option value="">Semua</option>
+                            @foreach ($karyawans as $item)
+                                <option value="{{ $item->nama }}" {{ request('nama') == $item->nama ? 'selected' : '' }}>
+                                    {{ $item->nama }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Role</label>
+                        <select name="role" class="form-select">
+                            <option value="">Semua</option>
+                            <option value="Karyawan" {{ request('role') == 'Karyawan' ? 'selected' : '' }}>
+                                Karyawan
+                            </option>
+                            <option value="Admin" {{ request('role') == 'Admin' ? 'selected' : '' }}>
+                                Admin
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <button class="btn btn-primary w-100">
+                            Cari
+                        </button>
+                    </div>
+
                 </div>
-
-                <div class="col-md-4">
-                    <label class="form-label">Role</label>
-                    <select class="form-select">
-                        <option value="">Choose</option>
-                        <option>Karyawan</option>
-                        <option>Admin</option>
-                    </select>
-                </div>
-
             </div>
         </div>
-    </div>
+    </form>
+
 
     <div class="mb-3">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahKaryawan">

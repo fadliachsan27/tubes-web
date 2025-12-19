@@ -19,4 +19,5 @@ class Karyawan extends Model
         'role',
         'status'
     ];
+    
 }
