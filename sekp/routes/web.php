@@ -21,3 +21,11 @@ Route::post('/set-session', function (\Illuminate\Http\Request $request) {
     session(['user' => $request->all()]);
     return response()->json(['status' => true]);
 });
+
+Route::get('/absensi', function () {
+    return view('absensi.index');
+});
+
+Route::get('/karyawan', function () {
+    return view('karyawan.index');
+});
