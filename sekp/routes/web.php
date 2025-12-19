@@ -29,3 +29,7 @@ Route::get('/absensi', function () {
 Route::get('/karyawan', function () {
     return view('karyawan.index');
 });
+
+Route::get('/jobdesk', function () {
+    return view('jobdesk.index');
+});

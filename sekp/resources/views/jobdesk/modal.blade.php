@@ -1,43 +1,31 @@
-<div class="modal fade" id="modalTambahKaryawan" tabindex="-1">
+<div class="modal fade" id="modalTambahJobdesk" tabindex="-1">
     <div class="modal-dialog">
         <form class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Karyawan</h5>
+                <h5 class="modal-title">Tambah Jobdesk</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
+
                 <div class="mb-3">
-                    <label>Nama</label>
+                    <label class="form-label">Nama Jobdesk</label>
                     <input type="text" class="form-control">
                 </div>
 
                 <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" class="form-control">
+                    <label class="form-label">Tugas Utama</label>
+                    <textarea class="form-control" rows="3"></textarea>
                 </div>
 
                 <div class="mb-3">
-                    <label>Telepon</label>
-                    <input type="text" class="form-control">
-                </div>
-
-                <div class="mb-3">
-                    <label>Role</label>
+                    <label class="form-label">Karyawan</label>
                     <select class="form-select">
-                        <option>Karyawan</option>
-                        <option>Admin</option>
+                        <option value="">Pilih Karyawan</option>
                     </select>
                 </div>
 
-                <div class="mb-3">
-                    <label>Status</label>
-                    <select class="form-select">
-                        <option>Aktif</option>
-                        <option>Nonaktif</option>
-                    </select>
-                </div>
             </div>
 
             <div class="modal-footer">
@@ -48,46 +36,34 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalEditKaryawan" tabindex="-1">
+<div class="modal fade" id="modalEditJobdesk" tabindex="-1">
     <div class="modal-dialog">
         <form class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title">Edit Karyawan</h5>
+                <h5 class="modal-title">Edit Jobdesk</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
+
                 <div class="mb-3">
-                    <label>Nama</label>
+                    <label class="form-label">Nama Jobdesk</label>
                     <input type="text" class="form-control">
                 </div>
 
                 <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" class="form-control">
+                    <label class="form-label">Tugas Utama</label>
+                    <textarea class="form-control" rows="3"></textarea>
                 </div>
 
                 <div class="mb-3">
-                    <label>Telepon</label>
-                    <input type="text" class="form-control">
-                </div>
-
-                <div class="mb-3">
-                    <label>Role</label>
+                    <label class="form-label">Karyawan</label>
                     <select class="form-select">
-                        <option>Karyawan</option>
-                        <option>Admin</option>
+                        <option value="">Pilih Karyawan</option>
                     </select>
                 </div>
 
-                <div class="mb-3">
-                    <label>Status</label>
-                    <select class="form-select">
-                        <option>Aktif</option>
-                        <option>Nonaktif</option>
-                    </select>
-                </div>
             </div>
 
             <div class="modal-footer">
@@ -100,18 +76,18 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalDeleteKaryawan" tabindex="-1">
+<div class="modal fade" id="modalDeleteJobdesk" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <form class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title">Hapus Karyawan</h5>
+                <h5 class="modal-title">Hapus Jobdesk</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
                 <p>
-                    Yakin ingin menghapus karyawan ini?
+                    Yakin ingin menghapus jobdesk ini?
                 </p>
             </div>
 

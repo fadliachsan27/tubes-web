@@ -1,15 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Data Karyawan')
+@section('title', 'Data Jobdesk')
 
 @section('content')
 
+{{-- FILTER --}}
 <div class="card mb-3">
     <div class="card-body">
         <div class="row g-3 justify-content-center align-items-end">
 
             <div class="col-md-4">
-                <label class="form-label">Nama</label>
+                <label class="form-label">Nama Jobdesk</label>
+                <select class="form-select">
+                    <option value="">Choose</option>
+                    <option>Front-End Dev</option>
+                    <option>Back-End Dev</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Nama Karyawan</label>
                 <select class="form-select">
                     <option value="">Choose</option>
                     <option>John Doe</option>
@@ -17,32 +27,25 @@
                 </select>
             </div>
 
-            <div class="col-md-4">
-                <label class="form-label">Role</label>
-                <select class="form-select">
-                    <option value="">Choose</option>
-                    <option>Karyawan</option>
-                    <option>Admin</option>
-                </select>
-            </div>
-
         </div>
     </div>
 </div>
 
+{{-- ACTION BUTTON --}}
 <div class="mb-3">
     <button
         class="btn btn-primary"
         data-bs-toggle="modal"
-        data-bs-target="#modalTambahKaryawan"
+        data-bs-target="#modalTambahJobdesk"
     >
         <i class="fa-solid fa-plus me-1"></i> Tambah
     </button>
 </div>
 
+{{-- TABLE --}}
 <div class="card">
     <div class="card-header fw-semibold">
-        Tabel Data Karyawan
+        Tabel Data Jobdesk
     </div>
 
     <div class="card-body p-0">
@@ -50,11 +53,9 @@
             <thead class="table-light">
                 <tr>
                     <th>ID</th>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Telepon</th>
-                    <th>Role</th>
-                    <th>Status</th>
+                    <th>Nama Jobdesk</th>
+                    <th>Tugas Utama</th>
+                    <th>Nama Karyawan</th>
                     <th width="120">Aksi</th>
                 </tr>
             </thead>
@@ -62,27 +63,23 @@
             <tbody>
                 <tr>
                     <td>001</td>
+                    <td>Front-End Dev</td>
+                    <td>Mengembangkan UI</td>
                     <td>John Doe</td>
-                    <td>john@example.com</td>
-                    <td>08123456789</td>
-                    <td>Karyawan</td>
-                    <td>
-                        <span class="badge bg-success">Aktif</span>
-                    </td>
                     <td>
                         <div class="d-flex gap-1">
                             <button
-                                class="btn btn-warning btn-sm text-white edit-btn"
+                                class="btn btn-warning btn-sm text-white"
                                 data-bs-toggle="modal"
-                                data-bs-target="#modalEditKaryawan"
+                                data-bs-target="#modalEditJobdesk"
                             >
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
 
                             <button
-                                class="btn btn-danger btn-sm delete-btn"
+                                class="btn btn-danger btn-sm"
                                 data-bs-toggle="modal"
-                                data-bs-target="#modalDeleteKaryawan"
+                                data-bs-target="#modalDeleteJobdesk"
                             >
                                 <i class="fa-solid fa-trash"></i>
                             </button>
@@ -92,27 +89,23 @@
 
                 <tr>
                     <td>002</td>
+                    <td>Back-End Dev</td>
+                    <td>Mengelola API</td>
                     <td>Jane Smith</td>
-                    <td>jane@example.com</td>
-                    <td>08234567890</td>
-                    <td>Admin</td>
-                    <td>
-                        <span class="badge bg-secondary">Nonaktif</span>
-                    </td>
                     <td>
                         <div class="d-flex gap-1">
                             <button
-                                class="btn btn-warning btn-sm text-white edit-btn"
+                                class="btn btn-warning btn-sm text-white"
                                 data-bs-toggle="modal"
-                                data-bs-target="#modalEditKaryawan"
+                                data-bs-target="#modalEditJobdesk"
                             >
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
 
                             <button
-                                class="btn btn-danger btn-sm delete-btn"
+                                class="btn btn-danger btn-sm"
                                 data-bs-toggle="modal"
-                                data-bs-target="#modalDeleteKaryawan"
+                                data-bs-target="#modalDeleteJobdesk"
                             >
                                 <i class="fa-solid fa-trash"></i>
                             </button>
@@ -125,7 +118,7 @@
     </div>
 </div>
 
-@include('karyawan.modal')
+{{-- INCLUDE MODAL --}}
+@include('jobdesk.modal')
 
 @endsection
-
