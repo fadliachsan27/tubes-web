@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="col-md-2">
-                        <button class="btn btn-primary w-100">
+                        <button class="btn btn-primary w-25">
                             Cari
                         </button>
                     </div>
