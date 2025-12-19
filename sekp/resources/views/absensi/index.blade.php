@@ -7,12 +7,12 @@
 
 {{-- Button kiri --}}
 <div class="mb-3 d-flex gap-2">
-    <button class="btn btn-success">
+    <button class="btn btn-success" onclick="masukKerja()">
         <i class="fa-solid fa-right-to-bracket me-1"></i>
         Masuk Kerja
     </button>
 
-    <button class="btn btn-danger">
+    <button class="btn btn-danger" onclick="selesaiKerja()">
         <i class="fa-solid fa-right-from-bracket me-1"></i>
         Selesai Kerja
     </button>
@@ -33,16 +33,83 @@
                     <th>Status</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>John Doe</td>
-                    <td>john@example.com</td>
-                    <td>2023-10-20 08:30</td>
-                    <td><span class="badge bg-success">Masuk</span></td>
-                </tr>
+            <tbody id="absensiTable">
+                {{-- data dari API --}}
             </tbody>
         </table>
     </div>
 </div>
+
+<script>
+    // sementara hardcode (nanti bisa dari auth)
+    const karyawan_id = 1;
+
+    function masukKerja() {
+        fetch('/api/absensi/masuk', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                karyawan_id: karyawan_id
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            alert(res.message);
+            loadAbsensi();
+        });
+    }
+
+    function selesaiKerja() {
+        fetch('/api/absensi/keluar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                karyawan_id: karyawan_id
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            alert(res.message);
+            loadAbsensi();
+        });
+    }
+
+    function loadAbsensi() {
+        fetch('/api/absensi')
+        .then(res => res.json())
+        .then(data => {
+            let html = '';
+
+            data.forEach(a => {
+                html += `
+                <tr>
+                    <td>${a.id}</td>
+                    <td>${a.karyawan.nama}</td>
+                    <td>${a.karyawan.email}</td>
+                    <td>
+                        ${a.tanggal}
+                        ${a.jam_masuk ?? ''}
+                        ${a.jam_keluar ? ' - ' + a.jam_keluar : ''}
+                    </td>
+                    <td>
+                        <span class="badge bg-${a.status === 'Masuk' ? 'success' : 'secondary'}">
+                            ${a.status}
+                        </span>
+                    </td>
+                </tr>`;
+            });
+
+            document.getElementById('absensiTable').innerHTML = html;
+        });
+    }
+
+    // load saat halaman dibuka
+    loadAbsensi();
+</script>
 @endsection

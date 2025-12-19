@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthWebController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\Api\AbsensiController;
 
 
 Route::get('/', function () {
@@ -35,3 +36,8 @@ Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('kar
 Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
 Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
 Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
+
+Route::get('/absensi', function () {
+    return view('absensi.index');
+});
+
