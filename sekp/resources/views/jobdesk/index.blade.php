@@ -60,72 +60,45 @@
     </div>
 
     <div class="card-body p-0">
-        <table class="table table-striped mb-0">
-            <thead class="table-light">
-                <tr>
-                    <th>ID</th>
-                    <th>Nama Jobdesk</th>
-                    <th>Tugas Utama</th>
-                    <th>Nama Karyawan</th>
-                    <th width="120">Aksi</th>
-                </tr>
-            </thead>
+        <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nama Jobdesk</th>
+            <th>Tugas</th>
+            <th>Nama Karyawan</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($jobdesks as $item)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $item->nama_jobdesk }}</td>
+            <td>{{ $item->tugas_utama }}</td>
+            <td>{{ $item->karyawan->nama }}</td>
+            <td>
+                <button class="btn btn-warning btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalEdit"
+                    data-id="{{ $item->id }}"
+                    data-nama="{{ $item->nama_jobdesk }}"
+                    data-tugas="{{ $item->tugas_utama }}"
+                    data-karyawan="{{ $item->karyawan_id }}">
+                    Edit
+                </button>
 
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>Front-End Dev</td>
-                    <td>Mengembangkan UI</td>
-                    <td>John Doe</td>
-                    <td>
-                        <div class="d-flex gap-1">
-                            <button
-                                class="btn btn-warning btn-sm text-white"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalEditJobdesk"
-                            >
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-
-                            <button
-                                class="btn btn-danger btn-sm"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalDeleteJobdesk"
-                            >
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>002</td>
-                    <td>Back-End Dev</td>
-                    <td>Mengelola API</td>
-                    <td>Jane Smith</td>
-                    <td>
-                        <div class="d-flex gap-1">
-                            <button
-                                class="btn btn-warning btn-sm text-white"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalEditJobdesk"
-                            >
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-
-                            <button
-                                class="btn btn-danger btn-sm"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalDeleteJobdesk"
-                            >
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-
-        </table>
+                <button class="btn btn-danger btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalDelete"
+                    data-id="{{ $item->id }}">
+                    Hapus
+                </button>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
     </div>
 </div>
 

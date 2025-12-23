@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthWebController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\Api\AbsensiController;
+use App\Http\Controllers\JobdeskController;
 
 
 Route::get('/', function () {
@@ -27,9 +28,6 @@ Route::get('/absensi', function () {
     return view('absensi.index');
 });
 
-Route::get('/jobdesk', function () {
-    return view('jobdesk.index');
-});
 
 Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
 Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
@@ -44,3 +42,5 @@ Route::get('/penggajian', function () {
 Route::get('/profile', function () {
     return view('profile.index');
 });
+
+Route::resource('jobdesk', JobdeskController::class);

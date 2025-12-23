@@ -20,5 +20,11 @@ class Karyawan extends Model
         'status',
         'password'
     ];
+
+    public function jobdesks()
+    {
+        return $this->hasMany(Jobdesk::class);
+    }
+
     
 }
