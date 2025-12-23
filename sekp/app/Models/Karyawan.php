@@ -26,5 +26,9 @@ class Karyawan extends Model
         return $this->hasMany(Jobdesk::class);
     }
 
+    public function penggajians()
+    {
+        return $this->hasMany(Penggajian::class);
+    }
     
 }

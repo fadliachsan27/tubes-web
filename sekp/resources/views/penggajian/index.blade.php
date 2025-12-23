@@ -14,8 +14,9 @@
                 <label class="form-label">Nama Karyawan</label>
                 <select class="form-select">
                     <option value="">Choose</option>
-                    <option>John Doe</option>
-                    <option>Jane Smith</option>
+                    @foreach($karyawans as $karyawan)
+                        <option>{{ $karyawan->nama }}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -30,11 +31,7 @@
 
 {{-- ACTION BUTTON --}}
 <div class="mb-3">
-    <button
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#modalTambahPenggajian"
-    >
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambahPenggajian">
         <i class="fa-solid fa-plus me-1"></i> Tambah Penggajian
     </button>
 </div>
@@ -56,19 +53,23 @@
                     <th width="120">Aksi</th>
                 </tr>
             </thead>
-
             <tbody>
+                @foreach($penggajians as $item)
                 <tr>
-                    <td>PG001</td>
-                    <td>John Doe</td>
-                    <td>2025-10-25</td>
-                    <td>Rp 5.000.000</td>
+                    <td>PG{{ str_pad($item->id,3,'0',STR_PAD_LEFT) }}</td>
+                    <td>{{ $item->karyawan->nama }}</td>
+                    <td>{{ $item->tanggal }}</td>
+                    <td>Rp {{ number_format($item->gaji_pokok,0,',','.') }}</td>
                     <td>
                         <div class="d-flex gap-1">
                             <button
                                 class="btn btn-warning btn-sm text-white"
                                 data-bs-toggle="modal"
                                 data-bs-target="#modalEditPenggajian"
+                                data-id="{{ $item->id }}"
+                                data-karyawan="{{ $item->karyawan_id }}"
+                                data-tanggal="{{ $item->tanggal }}"
+                                data-gaji="{{ $item->gaji_pokok }}"
                             >
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
@@ -77,19 +78,19 @@
                                 class="btn btn-danger btn-sm"
                                 data-bs-toggle="modal"
                                 data-bs-target="#modalDeletePenggajian"
+                                data-id="{{ $item->id }}"
                             >
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
                     </td>
                 </tr>
+                @endforeach
             </tbody>
 
         </table>
     </div>
 </div>
 
-{{-- INCLUDE MODAL --}}
 @include('penggajian.modal')
-
 @endsection

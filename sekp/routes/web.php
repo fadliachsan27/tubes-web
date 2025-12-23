@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthWebController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\Api\AbsensiController;
 use App\Http\Controllers\JobdeskController;
-
+use App\Http\Controllers\PenggajianController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,12 +35,14 @@ Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.s
 Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
 Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
 
-Route::get('/penggajian', function () {
-    return view('penggajian.index');
-});
 
 Route::get('/profile', function () {
     return view('profile.index');
 });
 
 Route::resource('jobdesk', JobdeskController::class);
+
+Route::get('/penggajian', [PenggajianController::class, 'index']);
+Route::post('/penggajian', [PenggajianController::class, 'store']);
+Route::put('/penggajian/{id}', [PenggajianController::class, 'update']);
+Route::delete('/penggajian/{id}', [PenggajianController::class, 'destroy']);
