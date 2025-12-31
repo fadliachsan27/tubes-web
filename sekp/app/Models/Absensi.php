@@ -14,8 +14,13 @@ class Absensi extends Model
         'status'
     ];
 
+    protected $casts = [
+        'tanggal' => 'date'
+    ];
+
     public function karyawan()
     {
         return $this->belongsTo(Karyawan::class);
     }
 }
+

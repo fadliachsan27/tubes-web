@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\KaryawanRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class KaryawanController extends Controller
 {
@@ -33,10 +34,11 @@ class KaryawanController extends Controller
             'telepon' => 'required',
             'role' => 'required',
             'status' => 'required',
+            'password' => Hash::make($request->password)
         ]);
 
         $this->karyawanRepo->create($request->only([
-            'nama', 'email', 'telepon', 'role', 'status'
+            'nama', 'email', 'telepon', 'role', 'status' ,'password'
         ]));
 
         return redirect()->route('karyawan.index')
@@ -51,10 +53,11 @@ class KaryawanController extends Controller
             'telepon' => 'required',
             'role' => 'required',
             'status' => 'required',
+            'password' => Hash::make($request->password)
         ]);
 
         $this->karyawanRepo->update($id, $request->only([
-            'nama', 'email', 'telepon', 'role', 'status'
+            'nama', 'email', 'telepon', 'role', 'status', 'password'
         ]));
 
         return redirect()->route('karyawan.index')

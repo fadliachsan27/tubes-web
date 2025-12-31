@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Karyawan;
 use App\Repositories\PenggajianRepository;
 use Illuminate\Http\Request;
+use App\Models\Penggajian;
 
 class PenggajianController extends Controller
 {
@@ -41,13 +42,15 @@ class PenggajianController extends Controller
     // UPDATE
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'karyawan_id' => 'required',
-            'tanggal' => 'required|date',
-            'gaji_pokok' => 'required|numeric'
-        ]);
+        $penggajian = Penggajian::findOrFail($id);
 
-        $this->repo->update($id, $request->all());
+        $penggajian->update(
+            $request->only([
+                'karyawan_id',
+                'tanggal',
+                'gaji_pokok'
+            ])
+        );
 
         return redirect()->back()->with('success', 'Penggajian berhasil diupdate');
     }

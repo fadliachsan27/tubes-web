@@ -5,14 +5,13 @@
 @section('content')
 <h4 class="mb-4">Absensi</h4>
 
-{{-- Button kiri --}}
 <div class="mb-3 d-flex gap-2">
-    <button class="btn btn-success" onclick="masukKerja()">
+    <button class="btn btn-success" id="btnMasuk" onclick="masukKerja()">
         <i class="fa-solid fa-right-to-bracket me-1"></i>
         Masuk Kerja
     </button>
 
-    <button class="btn btn-danger" onclick="selesaiKerja()">
+    <button class="btn btn-danger" id="btnKeluar" onclick="selesaiKerja()" disabled>
         <i class="fa-solid fa-right-from-bracket me-1"></i>
         Selesai Kerja
     </button>
@@ -20,96 +19,99 @@
 
 <div class="card">
     <div class="card-header fw-semibold">
-        Absensi Table
+        Absensi Hari Ini
     </div>
     <div class="card-body p-0">
         <table class="table table-striped mb-0">
             <thead class="table-light">
                 <tr>
-                    <th>ID</th>
                     <th>Nama</th>
                     <th>Email</th>
-                    <th>Tanggal & Waktu</th>
+                    <th>Tanggal</th>
+                    <th>Jam Masuk</th>
+                    <th>Jam Keluar</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody id="absensiTable">
-                {{-- data dari API --}}
+                <tr>
+                    <td colspan="6" class="text-center text-muted">Loading...</td>
+                </tr>
             </tbody>
         </table>
     </div>
 </div>
 
 <script>
-    // sementara hardcode (nanti bisa dari auth)
-    const karyawan_id = 1;
+function masukKerja() {
+    fetch('/api/absensi/masuk', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    })
+    .then(res => res.json())
+    .then(res => {
+        alert(res.message);
+        loadAbsensi();
+    });
+}
 
-    function masukKerja() {
-        fetch('/api/absensi/masuk', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                karyawan_id: karyawan_id
-            })
-        })
-        .then(res => res.json())
-        .then(res => {
-            alert(res.message);
-            loadAbsensi();
-        });
-    }
+function selesaiKerja() {
+    fetch('/api/absensi/keluar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    })
+    .then(res => res.json())
+    .then(res => {
+        alert(res.message);
+        loadAbsensi();
+    });
+}
 
-    function selesaiKerja() {
-        fetch('/api/absensi/keluar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                karyawan_id: karyawan_id
-            })
-        })
-        .then(res => res.json())
-        .then(res => {
-            alert(res.message);
-            loadAbsensi();
-        });
-    }
+function loadAbsensi() {
+    fetch('/api/absensi/hari-ini')
+    .then(res => res.json())
+    .then(a => {
+        let html = '';
 
-    function loadAbsensi() {
-        fetch('/api/absensi')
-        .then(res => res.json())
-        .then(data => {
-            let html = '';
-
-            data.forEach(a => {
-                html += `
+        if (!a) {
+            html = `
                 <tr>
-                    <td>${a.id}</td>
+                    <td colspan="6" class="text-center text-muted">
+                        Belum absensi hari ini
+                    </td>
+                </tr>`;
+            document.getElementById('btnMasuk').disabled = false;
+            document.getElementById('btnKeluar').disabled = true;
+        } else {
+            html = `
+                <tr>
                     <td>${a.karyawan.nama}</td>
                     <td>${a.karyawan.email}</td>
+                    <td>${a.tanggal}</td>
+                    <td>${a.jam_masuk ?? '-'}</td>
+                    <td>${a.jam_keluar ?? '-'}</td>
                     <td>
-                        ${a.tanggal}
-                        ${a.jam_masuk ?? ''}
-                        ${a.jam_keluar ? ' - ' + a.jam_keluar : ''}
-                    </td>
-                    <td>
-                        <span class="badge bg-${a.status === 'Masuk' ? 'success' : 'secondary'}">
+                        <span class="badge bg-${a.status === 'Selesai' ? 'secondary' : 'success'}">
                             ${a.status}
                         </span>
                     </td>
                 </tr>`;
-            });
 
-            document.getElementById('absensiTable').innerHTML = html;
-        });
-    }
+            // kontrol tombol
+            document.getElementById('btnMasuk').disabled = !!a.jam_masuk;
+            document.getElementById('btnKeluar').disabled = !a.jam_masuk || !!a.jam_keluar;
+        }
 
-    // load saat halaman dibuka
-    loadAbsensi();
+        document.getElementById('absensiTable').innerHTML = html;
+    });
+}
+
+loadAbsensi();
 </script>
 @endsection

@@ -44,13 +44,13 @@
     </button>
 
     <!-- Tambah Jobdesk Karyawan -->
-    <button
+    <!-- <button
         class="btn btn-success"
         data-bs-toggle="modal"
         data-bs-target="#modalJobdeskKaryawan"
     >
         <i class="fa-solid fa-user-plus me-1"></i> Jobdesk Karyawan
-    </button>
+    </button> -->
 </div>
 
 {{-- TABLE --}}

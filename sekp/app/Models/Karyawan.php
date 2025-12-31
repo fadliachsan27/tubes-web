@@ -21,6 +21,16 @@ class Karyawan extends Model
         'password'
     ];
 
+    protected $hidden = [
+        'password'
+    ];
+
+    public function absensis()
+    {
+        return $this->hasMany(Absensi::class);
+    }
+
+
     public function jobdesks()
     {
         return $this->hasMany(Jobdesk::class);

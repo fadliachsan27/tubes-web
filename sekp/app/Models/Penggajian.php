@@ -9,13 +9,14 @@ class Penggajian extends Model
 {
     use HasFactory;
 
+    protected $table = 'penggajians';
+
     protected $fillable = [
         'karyawan_id',
         'tanggal',
         'gaji_pokok'
     ];
 
-    // RELASI
     public function karyawan()
     {
         return $this->belongsTo(Karyawan::class);

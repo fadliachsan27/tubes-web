@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthWebController;
 use App\Http\Controllers\KaryawanController;
-use App\Http\Controllers\Api\AbsensiController;
 use App\Http\Controllers\JobdeskController;
 use App\Http\Controllers\PenggajianController;
 

@@ -20,13 +20,13 @@
     {{-- MENU --}}
     <ul class="nav nav-pills flex-column gap-1">
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="/dashboard"
                class="nav-link {{ Request::is('dashboard') ? 'active text-white' : 'text-secondary' }}"
                style="{{ Request::is('dashboard') ? 'background-color:#11b3b3' : '' }}">
                 <i class="fa-solid fa-house me-2"></i> Dashboard
             </a>
-        </li>
+        </li> -->
 
         <li class="nav-item">
             <a href="/absensi"

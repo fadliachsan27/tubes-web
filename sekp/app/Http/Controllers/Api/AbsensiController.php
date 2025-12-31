@@ -3,46 +3,43 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\AbsensiRepository;
 use Illuminate\Http\Request;
-use App\Models\Absensi;
-use Carbon\Carbon;
 
 class AbsensiController extends Controller
 {
-    // Masuk Kerja
+    protected $repo;
+
+    public function __construct(AbsensiRepository $repo)
+    {
+        $this->repo = $repo;
+    }
+
+    public function index()
+    {
+        return response()->json($this->repo->all());
+    }
+
     public function masuk(Request $request)
     {
-        $tanggal = Carbon::today();
-
-        $cek = Absensi::where('karyawan_id', $request->karyawan_id)
-            ->where('tanggal', $tanggal)
-            ->first();
-
-        if ($cek) {
-            return response()->json([
-                'message' => 'Sudah absen masuk hari ini'
-            ], 400);
-        }
-
-        $absen = Absensi::create([
-            'karyawan_id' => $request->karyawan_id,
-            'tanggal' => $tanggal,
-            'jam_masuk' => Carbon::now()->format('H:i:s'),
-            'status' => 'Masuk'
+        $request->validate([
+            'karyawan_id' => 'required|exists:karyawans,id'
         ]);
 
+        $this->repo->masuk($request->karyawan_id);
+
         return response()->json([
-            'message' => 'Absen masuk berhasil',
-            'data' => $absen
+            'message' => 'Berhasil absen masuk'
         ]);
     }
 
-    // Selesai Kerja
     public function keluar(Request $request)
     {
-        $absen = Absensi::where('karyawan_id', $request->karyawan_id)
-            ->where('tanggal', Carbon::today())
-            ->first();
+        $request->validate([
+            'karyawan_id' => 'required|exists:karyawans,id'
+        ]);
+
+        $absen = $this->repo->keluar($request->karyawan_id);
 
         if (!$absen) {
             return response()->json([
@@ -50,22 +47,8 @@ class AbsensiController extends Controller
             ], 400);
         }
 
-        $absen->update([
-            'jam_keluar' => Carbon::now()->format('H:i:s'),
-            'status' => 'Pulang'
-        ]);
-
         return response()->json([
-            'message' => 'Absen keluar berhasil',
-            'data' => $absen
+            'message' => 'Berhasil absen keluar'
         ]);
-    }
-
-    // Tampilkan tabel absensi
-    public function index()
-    {
-        $data = Absensi::with('karyawan')->latest()->get();
-
-        return response()->json($data);
     }
 }
